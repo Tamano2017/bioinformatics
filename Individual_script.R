@@ -2,8 +2,8 @@
 DATA=read.table("1.ped",row.names=2)
 K=dim(DATA)
 X=DATA[8,]
-WIN=500
-#step=150
+WIN=200
+step=50
 count=0
 count1=0
 d=0
@@ -11,7 +11,9 @@ index=0
 smallest = 1
 loc_smallest = 0
 pop_smallest = ""
-for(start in index*WIN+6:(length(X)-WIN)){#over windiws
+pop_vector=c()
+#for(start in 6:(length(X)-WIN)){#over windiws
+  for(start in seq(from=6, to=(length(X)-WIN), by=step)){
   d_vector=c()
   #over row
   for(i in 1:K[1]){#over database individuals
@@ -31,14 +33,14 @@ for(start in index*WIN+6:(length(X)-WIN)){#over windiws
     if(d_vector[x] == smallest){
       loc_smallest = x
       pop_smallest = as.character(DATA[x,1][[1]])
-      break;
-    }
+      break; 
+    } 
   }
+  pop_vector=c(pop_vector,pop_smallest)
   if((index*WIN) > length(X)){
     break
   }
 }#end go over reference
-print(d_vector)
-
+table(pop_smallest)
 
 
