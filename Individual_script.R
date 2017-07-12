@@ -1,9 +1,8 @@
 #For ped file dealing with letters
 DATA=read.table("1.ped",row.names=2)
 K=dim(DATA)
-X=DATA[8,]
-WIN=200
-step=50
+WIN=500
+step=200
 count=0
 count1=0
 d=0
@@ -12,9 +11,11 @@ smallest = 1
 loc_smallest = 0
 pop_smallest = ""
 pop_vector=c()
+for(pop in 1:K[1]){
+  d_vector=c()
+  X = DATA[pop,]
 #for(start in 6:(length(X)-WIN)){#over windiws
   for(start in seq(from=6, to=(length(X)-WIN), by=step)){
-  d_vector=c()
   #over row
   for(i in 1:K[1]){#over database individuals
     #i = 2
@@ -41,6 +42,10 @@ pop_vector=c()
     break
   }
 }#end go over reference
-table(pop_smallest)
+print(DATA[pop,1])
+print(table(pop_smallest))
+write.table(
+paste(DATA[pop,1], attributes(table(pop_vector))$dimnames[[1]], table(pop_vector)[[1]]),
+'res.txt')
 
-
+}
