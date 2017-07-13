@@ -1,6 +1,7 @@
 DATA=read.table("1.ped",row.names=2)
 BABY = c()
 Break = c()
+labeled_baby=c()
 vv=c(rep("not used",K[1]))
 used_column = c(rep("not used",K[1]))
 dc=cbind(DATA,used_column)
@@ -23,12 +24,12 @@ all_used = FALSE
   #while(p1 == p2){
   #  p2 = runif(1, 1:K[1])
   #}
-  vv[p1]='used'
-  dc$used_column=vv
-  dc[p1,K[2]]
-  vv[p2]='used'
-  dc$used_column=vv
-  dc[p2,K[2]]
+  #vv[p1]='used'
+  #dc$used_column=vv
+  #dc[p1,K[2]]
+  #vv[p2]='used'
+  #dc$used_column=vv
+  #dc[p2,K[2]]
   person1 <- dc['4257735763_A',] #dc[p1,1:(K[2]-1)]
   person2 <- dc['4257735504_A',] #dc[p2,1:(K[2]-1)]
   Break = sort(round(runif(100, 7, K[2]))) 
@@ -40,12 +41,12 @@ all_used = FALSE
       parents[Break[x]:Break[x+1]]=dc['4257735504_A',1]
     }
   }
-  BABY_matrix=rbind(BABY_matrix,BABY)
+  #BABY_matrix=rbind(BABY_matrix,BABY)
   for(p in 1:length(parents)){
     if(parents[p]==dc['4257735763_A',1]){pop1_SNP=pop1_SNP+1}
     if(parents[p]==dc['4257735504_A',1]){pop2_SNP=pop2_SNP+1}
   }
-  names(BABY) <- parents
+  labeled_baby <- c(parents,BABY)
   index=index+2
   if(index == K[1]){
     all_used = TRUE
