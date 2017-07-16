@@ -1,8 +1,12 @@
 #For ped file dealing with letters
 DATA=read.table("1.ped",row.names=2)
-BABY=read.table("hybrid.txt",row.names=2)
+BABY=read.table("baby.txt",row.names=2)
+MOM=read.csv("parents.txt", header=T)
+predicted_pop=c()
+false=0
 K=dim(DATA)
-WIN=200
+pos=0
+WIN=100
 step=100
 count=0
 count1=0
@@ -27,26 +31,36 @@ pop_vector=c()
         count1=count1+1 #increase no. of mismatches if data points aren't equal
       }
     }
-    d=count1/count
+    d=(count-count1)/count
     d_vector=c(d_vector,d)
   }
   smallest = min(d_vector)
   for(x in 1:length(d_vector)){
     if(identical(d_vector[x],smallest)){
+      print("poop")
       loc_smallest = x
       pop_smallest = as.character(DATA[x,1][[1]])
-      break; 
+      break;
     } 
   }
   pop_vector=c(pop_vector,pop_smallest)
-  if((index*WIN) > length(X)){
-    break
-  }
+  #if((index*WIN) > length(X)){
+  #  break
+  #}
+  
 }#end go over reference
-print(DATA[pop,1])
-print(table(pop_smallest))
-write.table(
-paste(DATA[pop,1], attributes(table(pop_vector))$dimnames[[1]], table(pop_vector)[[1]]),
-'res.txt')
-
-#}
+#print(DATA[pop_smallest,1])
+  for(y in 1:length(pop_vector)){
+    predicted_pop=c(predicted_pop,rep(pop_vector[y],200))
+  }
+  write.csv(predicted_pop,"predicted.txt")
+  PREDICT=read.csv("predicted.txt", header=T)
+  #for(ind in 1:length(predicted_pop))
+  #{
+  #  if(as.character(PREDICT[ind,2])==as.character(MOM[ind,2]))
+  #  {
+  #    pos=pos+1
+   # } 
+  #  false=(length(predicted_pop)-pos)
+  #}
+ # 
