@@ -1,7 +1,6 @@
 DATA=read.table("1.ped",row.names=2)
 BABY = c()
 Break = c()
-labeled_baby=c()
 vv=c(rep("not used",K[1]))
 used_column = c(rep("not used",K[1]))
 dc=cbind(DATA,used_column)
@@ -41,12 +40,15 @@ all_used = FALSE
       parents[Break[x]:Break[x+1]]=dc['4257735504_A',1]
     }
   }
+  
+  write.csv(parents,"parents.txt")
+  write.table(BABY, file="baby.txt", row.names=FALSE, col.names=FALSE)
+  #bb=rbind(BABY[,6:1000],BABY[,6:1000], (parent1[6:1000,]))
   #BABY_matrix=rbind(BABY_matrix,BABY)
   for(p in 1:length(parents)){
     if(parents[p]==dc['4257735763_A',1]){pop1_SNP=pop1_SNP+1}
     if(parents[p]==dc['4257735504_A',1]){pop2_SNP=pop2_SNP+1}
   }
-  labeled_baby <- c(parents,BABY)
   index=index+2
   if(index == K[1]){
     all_used = TRUE
