@@ -1,4 +1,5 @@
-DATA=read.table("1.ped",row.names=2)
+DATA=read.table("E1_2006.ped", row.names=2)
+K=dim(DATA)
 BABY = c()
 Break = c()
 vv=c(rep("not used",K[1]))
@@ -31,6 +32,8 @@ all_used = FALSE
   #dc[p2,K[2]]
   person1 <- dc['4257735763_A',] #dc[p1,1:(K[2]-1)]
   person2 <- dc['4257735504_A',] #dc[p2,1:(K[2]-1)]
+  #Break=seq(from=6,to=2006,by=200)
+
   Break = sort(round(runif(100, 7, K[2]))) 
   BABY=person1# c(BABY,person1[6:(Break[1] - 1)])
   parents= rep(dc['4257735763_A',1],length(BABY))
@@ -40,9 +43,9 @@ all_used = FALSE
       parents[Break[x]:Break[x+1]]=dc['4257735504_A',1]
     }
   }
-  
-  write.csv(parents,"parents.txt")
   write.table(BABY, file="baby.txt", row.names=FALSE, col.names=FALSE)
+  write.csv(parents,"PP.txt")
+  write.table(Break, file="break.txt", row.names = FALSE, col.names=FALSE)
   #bb=rbind(BABY[,6:1000],BABY[,6:1000], (parent1[6:1000,]))
   #BABY_matrix=rbind(BABY_matrix,BABY)
   for(p in 1:length(parents)){
