@@ -64,7 +64,7 @@ for(start in seq(from=6, to=(length(X)-WIN), by=step)){
 
 #PREDICT=read.csv("predicted.txt", header=T)
 
-for(ind in 5:length(BABY)){ #5 is where data first starts. 
+for(ind in 1:length(BABY)){ #5 is where data first starts. 
 
  if(identical(pop_vector[round((ind/WIN)-.5)],as.character(MOM[ind,2]))){
    pos=pos+1
