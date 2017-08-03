@@ -1,11 +1,12 @@
 DATA=read.table("E1_2006.ped",row.names=2)
 BABY=read.table("baby.txt",row.names=2)
-MOM=read.csv("parents.txt", header=T)
+MOM=read.csv("PP.txt", header=T)
 predicted_pop=c()
 #false=0
 K=dim(DATA)
 pos=0
 neg=0
+acc_rate=0
 WIN=250
 step=250
 count=0
@@ -58,19 +59,20 @@ for(start in seq(from=6, to=(length(X)-WIN), by=step)){
   
   
   
-}#end go over reference
+}
+pop_vector=c(pop_vector,pop_vector[length(pop_vector)]) #copies last value into vector so below function 
+#can work at max ind value
 
-#write.csv(pop_vector,"predicted.txt")
-
-#PREDICT=read.csv("predicted.txt", header=T)
-
-for(ind in 1:length(BABY)){ #5 is where data first starts. 
-
- if(identical(pop_vector[round((ind/WIN)-.5)],as.character(MOM[ind,2]))){
+for(ind in 1:1750){ #truncate bc data is not evenly divis. by WIN
+  
+#Scans predicted population vector and compares to actual origin.Pop_vector
+#increments by 1 for every 250 values of MOM
+ if(identical(as.character(pop_vector[round((.004*ind)+.5)]),as.character(MOM[ind,2]))){
    pos=pos+1
  } else {
    neg=neg+1
  }
 }
-
+acc_rate=100*(pos/(pos+neg))
+print(acc_rate)
 #
